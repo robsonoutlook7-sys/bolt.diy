@@ -67,7 +67,7 @@
     "@ai-sdk/cohere": "4.0.55",
     "@ai-sdk/deepseek": "3.0.59",
     "@ai-sdk/fireworks": "3.0.66",
-    "@ai-sdk/google": "4.0.88",
+    "@ai-sdk/google": "^3.0.0"",
     "@ai-sdk/mcp": "2.0.67",
     "@ai-sdk/mistral": "4.0.57",
     "@ai-sdk/openai": "4.0.84",
