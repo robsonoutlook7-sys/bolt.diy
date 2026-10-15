@@ -1,10 +1,20 @@
-// Importe o process
-import process from "node:process";
+import { createRequestHandler, RouterContextProvider, type ServerBuild } from 'react-router';
+import process from 'node:process';
+
+declare global {
+  interface CloudflareEnvironment extends Env {}
+}
+
+const requestHandler = createRequestHandler(
+  () => import('virtual:react-router/server-build') as unknown as Promise<ServerBuild>,
+  import.meta.env.MODE,
+);
 
 export default {
   async fetch(request, env, ctx) {
-    // Injeta as variáveis no process.env para o Bolt.diy conseguir ler
-    process.env.GOOGLE_GENERATIVE_AI_API_KEY = env.GOOGLE_GENERATIVE_AI_API_KEY;
+    if (env.GOOGLE_GENERATIVE_AI_API_KEY) {
+      process.env.GOOGLE_GENERATIVE_AI_API_KEY = env.GOOGLE_GENERATIVE_AI_API_KEY;
+    }
 
     const context = new RouterContextProvider() as RouterContextProvider & {
       cloudflare: { env: Env; ctx: ExecutionContext };
